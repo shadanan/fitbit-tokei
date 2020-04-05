@@ -1,6 +1,8 @@
 import document from "document";
 import clock from "clock";
-import { me } from "appbit";
+import { battery } from "power";
+import { me as appbit } from "appbit";
+import { today } from "user-activity";
 import { BodyPresenceSensor } from "body-presence";
 import { HeartRateSensor } from "heart-rate";
 
@@ -54,7 +56,7 @@ clock.addEventListener("tick", (tickEvent) => {
 });
 
 const hrm =
-  me.permissions.granted("access_heart_rate") && HeartRateSensor
+  appbit.permissions.granted("access_heart_rate") && HeartRateSensor
     ? new HeartRateSensor({ frequency: 3 })
     : null;
 
@@ -67,7 +69,7 @@ if (hrm) {
 }
 
 const body =
-  me.permissions.granted("access_activity") && BodyPresenceSensor
+  appbit.permissions.granted("access_activity") && BodyPresenceSensor
     ? new BodyPresenceSensor()
     : null;
 
@@ -83,3 +85,11 @@ if (body) {
   });
   body.start();
 }
+
+battery.addEventListener("change", () => {
+  const batteryText = document.getElementById("batteryText") as TextElement;
+  batteryText.text = `${Math.floor(battery.chargeLevel)}%`;
+
+  const batteryRect = document.getElementById("batteryRect") as RectElement;
+  batteryRect.width = (15 * battery.chargeLevel) / 100;
+});
