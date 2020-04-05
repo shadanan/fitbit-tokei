@@ -2,7 +2,7 @@ import document from "document";
 import clock from "clock";
 import { battery } from "power";
 import { me as appbit } from "appbit";
-import { today } from "user-activity";
+import { today, goals } from "user-activity";
 import { BodyPresenceSensor } from "body-presence";
 import { HeartRateSensor } from "heart-rate";
 
@@ -15,11 +15,22 @@ function updateDateAndTemperature() {
 }
 
 function updateBatteryLevel() {
-  const batteryText = document.getElementById("batteryText") as TextElement;
-  batteryText.text = `${Math.floor(battery.chargeLevel)}%`;
+  const batteryPercent = document.getElementById(
+    "batteryPercent"
+  ) as TextElement;
+  batteryPercent.text = `${Math.floor(battery.chargeLevel)}%`;
 
   const batteryRect = document.getElementById("batteryRect") as RectElement;
   batteryRect.width = (32 * battery.chargeLevel) / 100;
+}
+
+function updateStepCount() {
+  const stepCount = document.getElementById("stepCount") as TextElement;
+  if (appbit.permissions.granted("access_activity")) {
+    stepCount.text = goals.steps.toLocaleString(undefined, {
+      useGrouping: true,
+    });
+  }
 }
 
 const MONTH_NAMES = [
@@ -62,6 +73,7 @@ clock.granularity = "minutes"; // seconds, minutes, hours
 clock.addEventListener("tick", (tickEvent) => {
   setDate(tickEvent.date);
   setTime(tickEvent.date);
+  updateStepCount();
 });
 
 const hrm =

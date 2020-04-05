@@ -12,8 +12,13 @@
       text-anchor="start" text-length="20">--</text>
 
   <image x="4" y="4" width="40" height="20" href="battery.png" />
-  <text id="batteryText" x="48" y="22"
+  <text id="batteryPercent" x="48" y="22"
       fill="white" font-size="22" font-family="System-Regular"
       text-anchor="start" text-length="20">100%</text>
   <rect id="batteryRect" x="7" y="7" width="30" height="14" fill="#c5c8c6" />
+
+  <image x="100%-20" y="100%-24" width="16" height="20" href="shoe-prints.png" />
+  <text id="stepCount" x="100%-24" y="100%-6"
+      fill="white" font-size="22" font-family="System-Regular"
+      text-anchor="end" text-length="20">--</text>
 </svg>
