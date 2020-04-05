@@ -8,6 +8,20 @@ import { HeartRateSensor } from "heart-rate";
 
 let _date = "APR 8";
 let _temperature = "25°C";
+
+function updateDateAndTemperature() {
+  const dateAndTempText = document.getElementById("dateAndTemperature");
+  dateAndTempText.text = `${_date}  •  ${_temperature}`;
+}
+
+function updateBatteryLevel() {
+  const batteryText = document.getElementById("batteryText") as TextElement;
+  batteryText.text = `${Math.floor(battery.chargeLevel)}%`;
+
+  const batteryRect = document.getElementById("batteryRect") as RectElement;
+  batteryRect.width = (32 * battery.chargeLevel) / 100;
+}
+
 const MONTH_NAMES = [
   "JAN",
   "FEB",
@@ -31,11 +45,6 @@ function setDate(date: Date) {
 function setTemperature(temperature: number) {
   _temperature = `${temperature}°C`;
   updateDateAndTemperature();
-}
-
-function updateDateAndTemperature() {
-  const dateAndTempText = document.getElementById("dateAndTemperature");
-  dateAndTempText.text = `${_date}  •  ${_temperature}`;
 }
 
 function format12Hour(date: Date): string {
@@ -86,10 +95,5 @@ if (body) {
   body.start();
 }
 
-battery.addEventListener("change", () => {
-  const batteryText = document.getElementById("batteryText") as TextElement;
-  batteryText.text = `${Math.floor(battery.chargeLevel)}%`;
-
-  const batteryRect = document.getElementById("batteryRect") as RectElement;
-  batteryRect.width = (15 * battery.chargeLevel) / 100;
-});
+battery.addEventListener("change", updateBatteryLevel);
+updateBatteryLevel();
