@@ -1,5 +1,8 @@
 import document from "document";
 import clock from "clock";
+import { me } from "appbit";
+import { BodyPresenceSensor } from "body-presence";
+import { HeartRateSensor } from "heart-rate";
 
 let _date = "APR 8";
 let _temperature = "25°C";
@@ -45,7 +48,38 @@ function setTime(date: Date) {
 }
 
 clock.granularity = "minutes"; // seconds, minutes, hours
-clock.ontick = function (evt) {
-  setDate(evt.date);
-  setTime(evt.date);
-};
+clock.addEventListener("tick", (tickEvent) => {
+  setDate(tickEvent.date);
+  setTime(tickEvent.date);
+});
+
+const hrm =
+  me.permissions.granted("access_heart_rate") && HeartRateSensor
+    ? new HeartRateSensor({ frequency: 3 })
+    : null;
+
+if (hrm) {
+  hrm.addEventListener("reading", () => {
+    const heartRateText = document.getElementById("heartRate");
+    heartRateText.text = `${hrm.heartRate}`;
+  });
+  hrm.start();
+}
+
+const body =
+  me.permissions.granted("access_activity") && BodyPresenceSensor
+    ? new BodyPresenceSensor()
+    : null;
+
+if (body) {
+  body.addEventListener("reading", () => {
+    if (!body.present) {
+      hrm.stop();
+      const heartRateText = document.getElementById("heartRate");
+      heartRateText.text = "--";
+    } else {
+      hrm.start();
+    }
+  });
+  body.start();
+}
