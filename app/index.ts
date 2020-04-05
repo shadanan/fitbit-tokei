@@ -24,10 +24,14 @@ function updateBatteryLevel() {
   batteryRect.width = (32 * battery.chargeLevel) / 100;
 }
 
-function updateStepCount() {
+function updateActivity() {
   const stepCount = document.getElementById("stepCount") as TextElement;
+  const calories = document.getElementById("calories") as TextElement;
   if (appbit.permissions.granted("access_activity")) {
-    stepCount.text = goals.steps.toLocaleString(undefined, {
+    stepCount.text = today.adjusted.steps.toLocaleString(undefined, {
+      useGrouping: true,
+    });
+    calories.text = today.adjusted.calories.toLocaleString(undefined, {
       useGrouping: true,
     });
   }
@@ -48,7 +52,9 @@ const MONTH_NAMES = [
   "DEC",
 ];
 
-function setDate(date: Date) {
+function updateDateAndTime(date: Date) {
+  const clockText = document.getElementById("clockText");
+  clockText.text = `${format12Hour(date)}`;
   _date = `${MONTH_NAMES[date.getMonth()]} ${date.getDate()}`;
   updateDateAndTemperature();
 }
@@ -64,16 +70,10 @@ function format12Hour(date: Date): string {
   return `${hours}:${minutes}`;
 }
 
-function setTime(date: Date) {
-  const clockText = document.getElementById("clockText");
-  clockText.text = `${format12Hour(date)}`;
-}
-
 clock.granularity = "minutes"; // seconds, minutes, hours
 clock.addEventListener("tick", (tickEvent) => {
-  setDate(tickEvent.date);
-  setTime(tickEvent.date);
-  updateStepCount();
+  updateDateAndTime(tickEvent.date);
+  updateActivity();
 });
 
 const hrm =
