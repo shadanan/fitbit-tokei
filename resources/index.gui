@@ -12,7 +12,7 @@
       text-anchor="start" text-length="20">--°</text>
 
   <image x="4" y="4" width="40" height="20" href="battery.png" />
-  <text id="batteryPercent" x="48" y="22"
+  <text id="batteryPct" x="48" y="22"
       fill="white" font-size="22" font-family="System-Regular"
       text-anchor="start" text-length="20">100%</text>
   <rect id="batteryRect" x="7" y="7" width="30" height="14" fill="#009a2a" />

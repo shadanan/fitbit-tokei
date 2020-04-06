@@ -6,7 +6,8 @@
   "devDependencies": {
     "@fitbit/sdk": "~4.1.0",
     "@fitbit/sdk-cli": "^1.7.1",
-    "fitbit-sdk-types": "^4.3.5"
+    "fitbit-sdk-types": "^4.3.5",
+    "prettier": "^2.0.3"
   },
   "fitbit": {
     "appUUID": "0a094903-9eb3-4311-b362-c47815bdee4e",
@@ -32,8 +33,5 @@
   "scripts": {
     "build": "fitbit-build",
     "debug": "fitbit"
-  },
-  "dependencies": {
-    "prettier": "^2.0.2"
   }
 }
