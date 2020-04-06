@@ -3,6 +3,7 @@ import document from "document";
 import clock from "clock";
 import { battery } from "power";
 import { me as appbit } from "appbit";
+import { preferences } from "user-settings";
 import { today } from "user-activity";
 import { BodyPresenceSensor } from "body-presence";
 import { HeartRateSensor } from "heart-rate";
@@ -55,13 +56,16 @@ const MONTH_NAMES = [
 
 function updateDateAndTime(date: Date) {
   const clockText = document.getElementById("clockText") as TextElement;
-  clockText.text = `${format12Hour(date)}`;
+  clockText.text = `${formatTime(date)}`;
   const dateText = document.getElementById("dateText") as TextElement;
   dateText.text = `${MONTH_NAMES[date.getMonth()]} ${date.getDate()}`;
 }
 
-function format12Hour(date: Date): string {
-  const hours = date.getHours() % 12 || 12;
+function formatTime(date: Date): string {
+  const hours =
+    preferences.clockDisplay == "12h"
+      ? date.getHours() % 12 || 12
+      : ("0" + date.getHours()).slice(-2);
   const minutes = ("0" + date.getMinutes()).slice(-2);
   return `${hours}:${minutes}`;
 }
