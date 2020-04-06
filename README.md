@@ -1,2 +1,3 @@
-# shadanan-gmail.com
-fitbit-tokei
+# Tokei
+
+Clean Fitbit watchface with weather.

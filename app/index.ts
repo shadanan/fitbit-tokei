@@ -3,7 +3,7 @@ import document from "document";
 import clock from "clock";
 import { battery } from "power";
 import { me as appbit } from "appbit";
-import { preferences } from "user-settings";
+import { preferences, units } from "user-settings";
 import { today } from "user-activity";
 import { BodyPresenceSensor } from "body-presence";
 import { HeartRateSensor } from "heart-rate";
@@ -11,7 +11,11 @@ import { Weather } from "../common/weather";
 
 function updateWeather(weather: Weather) {
   const temperature = document.getElementById("temperature") as TextElement;
-  temperature.text = `${Math.round(weather.main.temp - 273.15)}°C`;
+  if (units.temperature === "F") {
+    temperature.text = `${Math.round((weather.main.temp * 9) / 5 - 459.67)}°F`;
+  } else {
+    temperature.text = `${Math.round(weather.main.temp - 273.15)}°C`;
+  }
   const weatherIcon = document.getElementById("weatherIcon") as ImageElement;
   weatherIcon.href = `${weather.weather[0].icon.slice(0, 2)}.png`;
 }
