@@ -1,3 +1,13 @@
 # Tokei
 
-Clean Fitbit watchface with weather.
+![Screenshot](screenshot.png)
+
+A clean digital Fitbit watchface with:
+
+- 🔋Battery
+- 🔥Calories
+- 📅Date
+- 💗Heart Rate
+- 👣Step Count
+- 🌡Temperature
+- 🌤Weather
