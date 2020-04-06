@@ -83,4 +83,4 @@ monitorWeather((weather) => {
   }
   const weatherIcon = document.getElementById("weatherIcon") as ImageElement;
   weatherIcon.href = `${weather.weather[0].icon.slice(0, 2)}.png`;
-}, 20 * 60 * 1000);
+});
