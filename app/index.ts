@@ -9,6 +9,8 @@ import { BodyPresenceSensor } from "body-presence";
 import { HeartRateSensor } from "heart-rate";
 import { Weather } from "../common/weather";
 
+document.getElementById("temperature").text = `--°${units.temperature}`;
+
 function updateWeather(weather: Weather) {
   const temperature = document.getElementById("temperature") as TextElement;
   if (units.temperature === "F") {

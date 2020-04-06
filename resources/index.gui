@@ -9,7 +9,7 @@
   <image id="weatherIcon" x="50%-8" y="70%-26" width="35" height="35" href="00.png" />
   <text id="temperature" x="50%+32" y="70%"
       fill="white" font-size="25" font-family="System-Regular"
-      text-anchor="start" text-length="20">--°C</text>
+      text-anchor="start" text-length="20">--°</text>
 
   <image x="4" y="4" width="40" height="20" href="battery.png" />
   <text id="batteryPercent" x="48" y="22"
