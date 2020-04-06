@@ -1,17 +1,18 @@
+import * as messaging from "messaging";
 import document from "document";
 import clock from "clock";
 import { battery } from "power";
 import { me as appbit } from "appbit";
-import { today, goals } from "user-activity";
+import { today } from "user-activity";
 import { BodyPresenceSensor } from "body-presence";
 import { HeartRateSensor } from "heart-rate";
+import { Weather } from "../common/weather";
 
-let _date = "APR 8";
-let _temperature = "25°C";
-
-function updateDateAndTemperature() {
-  const dateAndTempText = document.getElementById("dateAndTemperature");
-  dateAndTempText.text = `${_date}  •  ${_temperature}`;
+function updateWeather(weather: Weather) {
+  const temperature = document.getElementById("temperature") as TextElement;
+  temperature.text = `${Math.round(weather.main.temp - 273.15)}°C`;
+  const weatherIcon = document.getElementById("weatherIcon") as ImageElement;
+  weatherIcon.href = `${weather.weather[0].icon.slice(0, 2)}.png`;
 }
 
 function updateBatteryLevel() {
@@ -53,15 +54,10 @@ const MONTH_NAMES = [
 ];
 
 function updateDateAndTime(date: Date) {
-  const clockText = document.getElementById("clockText");
+  const clockText = document.getElementById("clockText") as TextElement;
   clockText.text = `${format12Hour(date)}`;
-  _date = `${MONTH_NAMES[date.getMonth()]} ${date.getDate()}`;
-  updateDateAndTemperature();
-}
-
-function setTemperature(temperature: number) {
-  _temperature = `${temperature}°C`;
-  updateDateAndTemperature();
+  const dateText = document.getElementById("dateText") as TextElement;
+  dateText.text = `${MONTH_NAMES[date.getMonth()]} ${date.getDate()}`;
 }
 
 function format12Hour(date: Date): string {
@@ -109,3 +105,24 @@ if (body) {
 
 battery.addEventListener("change", updateBatteryLevel);
 updateBatteryLevel();
+
+function fetchWeather() {
+  if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
+    messaging.peerSocket.send({
+      command: "weather",
+    });
+  }
+}
+
+messaging.peerSocket.addEventListener("open", (evt) => {
+  fetchWeather();
+});
+
+messaging.peerSocket.addEventListener("message", (evt) => {
+  const weather = evt.data as Weather | undefined;
+  if (weather) {
+    updateWeather(weather);
+  }
+});
+
+setInterval(fetchWeather, 20 * 1000 * 60);

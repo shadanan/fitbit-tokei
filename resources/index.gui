@@ -1,16 +1,21 @@
 <svg viewport-fill="black">
-  <text id="clockText" x="50%" y="53%"
-      fill="white" font-size="80" font-family="System-Regular"
+  <text id="clockText" x="50%" y="57%"
+      fill="white" font-size="120" font-family="System-Light"
       text-anchor="middle" text-length="20">12:48</text>
-  <text id="dateAndTemperature" x="50%" y="63%"
+
+  <text id="dateText" x="50%-14" y="70%"
       fill="white" font-size="25" font-family="System-Regular"
-      text-anchor="middle" text-length="20">APR 8  •  25°C</text>
+      text-anchor="end" text-length="20">APR 8</text>
+  <image id="weatherIcon" x="50%-8" y="70%-26" width="35" height="35" href="00.png" />
+  <text id="temperature" x="50%+32" y="70%"
+      fill="white" font-size="25" font-family="System-Regular"
+      text-anchor="start" text-length="20">--°C</text>
 
   <image x="4" y="4" width="40" height="20" href="battery.png" />
   <text id="batteryPercent" x="48" y="22"
       fill="white" font-size="22" font-family="System-Regular"
       text-anchor="start" text-length="20">100%</text>
-  <rect id="batteryRect" x="7" y="7" width="30" height="14" fill="#c5c8c6" />
+  <rect id="batteryRect" x="7" y="7" width="30" height="14" fill="#009a2a" />
 
   <image x="4" y="100%-24" width="24" height="20" href="heartbeat.png" />
   <text id="heartRate" x="32" y="100%-6"
