@@ -6,7 +6,7 @@
   <text id="dateText" x="50%-14" y="70%"
       fill="white" font-size="25" font-family="System-Regular"
       text-anchor="end" text-length="20">APR 8</text>
-  <image id="weatherIcon" x="50%-8" y="70%-26" width="35" height="35" href="00.png" />
+  <image id="weatherIcon" x="50%-8" y="70%-26" width="35" height="35" href="weather/00.png" />
   <text id="temperature" x="50%+32" y="70%"
       fill="white" font-size="25" font-family="System-Regular"
       text-anchor="start" text-length="20">--°</text>

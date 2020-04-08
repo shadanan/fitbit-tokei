@@ -82,5 +82,5 @@ monitorWeather((weather) => {
     temperature.text = `${Math.round(weather.main.temp - 273.15)}°C`;
   }
   const weatherIcon = document.getElementById("weatherIcon") as ImageElement;
-  weatherIcon.href = `${weather.weather[0].icon.slice(0, 2)}.png`;
+  weatherIcon.href = `weather/${weather.weather[0].icon}.png`;
 });
