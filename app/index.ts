@@ -1,11 +1,12 @@
-import document from "document";
-import clock from "clock";
 import { me as appbit } from "appbit";
-import { preferences, units } from "user-settings";
+import clock from "clock";
+import { display } from "display";
+import document from "document";
 import { today } from "user-activity";
-import { monitorWeather } from "./weather";
-import { monitorHeartRate } from "./heartrate";
+import { preferences, units } from "user-settings";
 import { monitorBattery } from "./battery";
+import { monitorHeartRate } from "./heartrate";
+import { monitorWeather } from "./weather";
 
 const MONTH_NAMES = [
   "JAN",
@@ -51,7 +52,13 @@ function updateActivity() {
   }
 }
 
-clock.granularity = "minutes"; // seconds, minutes, hours
+clock.granularity = "minutes";
+display.addEventListener("change", () => {
+  display.on
+    ? (clock.granularity = "seconds")
+    : (clock.granularity = "minutes");
+});
+
 clock.addEventListener("tick", (tickEvent) => {
   updateDateAndTime(tickEvent.date);
   updateActivity();

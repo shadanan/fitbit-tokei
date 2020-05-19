@@ -1,5 +1,5 @@
-import * as messaging from "messaging";
 import { display } from "display";
+import * as messaging from "messaging";
 import { Weather } from "../common/weather";
 
 const TIMEOUT = 30 * 60 * 1000;

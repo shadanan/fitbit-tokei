@@ -1,6 +1,6 @@
-import { display } from "display";
 import { me as appbit } from "appbit";
 import { BodyPresenceSensor } from "body-presence";
+import { display } from "display";
 import { HeartRateSensor } from "heart-rate";
 
 export function monitorHeartRate(callback: (heartRate: number | null) => void) {
